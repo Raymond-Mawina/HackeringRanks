@@ -8,25 +8,44 @@ formingAMagicSquare([
   [6, 4, 2],
 ]);
 
+class MatrixStrip {
+  constructor(stripArr) {
+    this.stripArr = stripArr;
+    this.sumOfStripValues = 0;
+    for (const stripElement of stripArr) {
+      this.sumOfStripValues += stripElement;
+    }
+  }
+}
+
 class Matrix {
   constructor(matrixArr) {
-    this.diagonals = [[], []];
+    this.diagonals = [];
+    let diagonal = [];
     for (let x = 0; x < matrixArr.length; x++) {
-      this.diagonals[0].push(matrixArr[x][x]);
+      diagonal.push(matrixArr[x][x]);
     }
+    this.diagonals.push(new MatrixStrip(diagonal));
 
+    diagonal = [];
     for (let y = matrixArr.length - 1, x = 0; y >= 0; y--, x++) {
-      this.diagonals[1].push(matrixArr[x][y]);
+      diagonal.push(matrixArr[x][y]);
+    }
+    this.diagonals.push(new MatrixStrip(diagonal));
+
+    this.rows = [];
+    this.columns = [];
+
+    for (let x = 0; x < matrixArr.length; x++) {
+      this.rows.push(new MatrixStrip(matrixArr[x]));
     }
 
-    this.rows = [...matrixArr];
-    this.columns = [];
     for (let x = 0; x < matrixArr.length; x++) {
       const column = [];
       for (let y = 0; y < matrixArr[x].length; y++) {
         column.push(matrixArr[y][x]);
       }
-      this.columns.push(column);
+      this.columns.push(new MatrixStrip(column));
     }
     console.log("diagonals", this.diagonals);
     console.log("rows", this.rows);
