@@ -8,7 +8,7 @@ function divisibleSumPairs(n, k, ar) {
       }
     }
   }
-  return arrs;
+  return arrs.length;
 }
 
 divisibleSumPairs(6, 5, [1, 2, 3, 4, 5, 6]);
